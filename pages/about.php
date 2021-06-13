@@ -90,7 +90,9 @@ body{
       </style>
 </head>
 <body>
-
+ <!--header-->
+ <?php include('../includes/navigation.php'); ?>  
+  <!-- header end-->
     <div class="about-section">
         <div class="inner-container">
             <h1>About Us</h1>
