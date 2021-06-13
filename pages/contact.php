@@ -261,10 +261,14 @@ hr {
     </style>
 </head>
 <body>
+
+<!--header-->
+<?php include('../includes/navigation.php'); ?>  
+  <!-- header end-->
  
   <section id="contact">
   
-  <h1 class="section-header">CONTACT</h1>
+  <h1 class="section-header">Get in touch with us</h1>
   
   <div class="contact-wrapper">
     
