@@ -1,254 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <title>Pretty Paws</title>
-   <style>
-    *{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/menu.css">
+  <title>Navigation Bar layout</title>
+
+  <style>
+      /* CORE STYLES */
+:root {
+  --primary-color: rgba(13, 110, 139, 0.75);
+  --overlay-color: rgba(24, 39, 51 , 0.85);
+  --menu-speed: 0.75s;
 }
 
-html{
-	font-size: 10px;
-	font-family: "Roboto Cn", sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a{
-	text-decoration: none;
-	color: #eee;
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.4;
 }
 
-header{
-	width: 100%;
-	height: 100vh;
-	
-	background-color: #CB7621;
-	background-size: cover;
-	position: relative;
+.container {
+  max-width: 960px;
+  margin: auto;
   overflow: hidden;
+  padding: 0 3rem;
 }
 
 
-.container{
-	max-width: 120rem;
-	width: 90%;
-	margin: 0 auto;
+
+
+/* MENU STYLES */
+.menu-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
-.menu-toggle{
-	position: fixed;
-	top: 2.5rem;
-	right: 2.5rem;
-	color: #eeeeee;
-	font-size: 3rem;
-	cursor: pointer;
-	z-index: 1000;
-	display: none;
+.menu-wrap .toggler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
 }
 
-nav{
-	padding-top: 5rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	text-transform: uppercase;
-	font-size: 1.6rem;
+.menu-wrap .hamburger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  padding: 1rem;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.brand{
-	font-size: 3rem;
-	font-weight: 300;
-	transform: translateX(-100rem);
-	animation: slideIn .5s forwards;
+/* Hamburger Line */
+.menu-wrap .hamburger > div {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
 }
 
-.brand span{
-	color: crimson;
+/* Hamburger Lines - Top & Bottom */
+.menu-wrap .hamburger > div::before,
+.menu-wrap .hamburger > div::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  width: 100%;
+  height: 2px;
+  background: inherit;
 }
 
-nav ul{
-	display: flex;
+/* Moves Line Down */
+.menu-wrap .hamburger > div::after {
+  top: 10px;
 }
 
-nav ul li{
-	list-style: none;
-	transform: translateX(100rem);
-	animation: slideIn .5s forwards;
+/* Toggler Animation */
+.menu-wrap .toggler:checked + .hamburger > div {
+  transform: rotate(135deg);
 }
 
-nav ul li:nth-child(1){
-	animation-delay: 0s;
+/* Turns Lines Into X */
+.menu-wrap .toggler:checked + .hamburger > div:before,
+.menu-wrap .toggler:checked + .hamburger > div:after {
+  top: 0;
+  transform: rotate(90deg);
 }
 
-nav ul li:nth-child(2){
-	animation-delay: .5s;
+/* Rotate On Hover When Checked */
+.menu-wrap .toggler:checked:hover + .hamburger > div {
+  transform: rotate(225deg);
 }
 
-nav ul li:nth-child(3){
-	animation-delay: 1s;
+/* Show Menu */
+.menu-wrap .toggler:checked ~ .menu {
+  visibility: visible;
 }
 
-nav ul li:nth-child(4){
-	animation-delay: 1.5s;
+.menu-wrap .toggler:checked ~ .menu > div {
+  transform: scale(1);
+  transition-duration: var(--menu-speed);
 }
 
-nav ul li a{
-	padding: 1rem 0;
-	margin: 0 3rem;
-	position: relative;
-	letter-spacing: 2px;
+.menu-wrap .toggler:checked ~ .menu > div > div {
+  opacity: 1;
+  transition:  opacity 0.4s ease 0.4s;
 }
 
-nav ul li a:last-child{
-	margin-right: 0;
+.menu-wrap .menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-nav ul li a::before,
-nav ul li a::after{
-	content: '';
-	position: absolute;
-	width: 100%;
-	height: 2px;
-	background-color: crimson;
-	left: 0;
-	transform: scaleX(0);
-	transition: all .5s;
+.menu-wrap .menu > div {
+  background: var(--overlay-color);
+  border-radius: 50%;
+  width: 200vw;
+  height: 200vw;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  transition: all 0.4s ease;
 }
 
-nav ul li a::before{
-	top: 0;
-	transform-origin: left;
+.menu-wrap .menu > div > div {
+  text-align: center;
+  max-width: 90vw;
+  max-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-nav ul li a::after{
-	bottom: 0;
-	transform-origin: right;
+.menu-wrap .menu > div > div > ul > li {
+  list-style: none;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 1rem;
 }
 
-.overlay{
-	background-color: rgba(0,0,0,.95);
-	position: fixed;
-	right: 0;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	transition: opacity 650ms;
-	transform: scale(0);
-	opacity: 0;
-  display: none;
+.menu-wrap .menu > div > div > ul > li > a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.4s ease;
 }
 
-nav ul li a:hover::before,
-nav ul li a:hover::after{
-	transform: scaleX(1);
-}
 
-@keyframes slideIn {
-	from{
-
-	}
-	to{
-		transform: translateX(0);
-	}
-}
-
-@media screen and (max-width: 700px){
-
-	.menu-toggle{
-		display: block;
-	}
-
-	nav{
-		padding-top: 0;
-		display: none;
-		flex-direction: column;
-		justify-content: space-evenly;
-		align-items: center;
-		height: 100vh;
-		text-align: center;
-	}
-
-	nav ul{
-		flex-direction: column;
-	}
-
-	nav ul li{
-		margin-top: 5rem;
-	}
-
-	nav ul li a{
-		margin: 0;
-		font-size: 2.5rem;
-	}
-
-	.brand{
-		font-size: 5rem;
-	}
-  
-  .overlay.menu-open,
-  nav.menu-open{
-	  display: flex;
-	  transform: scale(1);
-	  opacity: 1;
-  }
-  
-}
-
-     </style>
-
-<script  > 
-var open = document.getElementById('hamburger');
-var changeIcon = true;
-
-open.addEventListener("click", function(){
-
-    var overlay = document.querySelector('.overlay');
-    var nav = document.querySelector('nav');
-    var icon = document.querySelector('.menu-toggle i');
-
-    overlay.classList.toggle("menu-open");
-    nav.classList.toggle("menu-open");
-
-    if (changeIcon) {
-        icon.classList.remove("fa-bars");
-        icon.classList.add("fa-times");
-
-        changeIcon = false;
-    }
-    else {
-        icon.classList.remove("fa-times");
-        icon.classList.add("fa-bars");
-        changeIcon = true;
-    }
-});
-</script>
+	  </style>
 </head>
 <body>
+  <div class="menu-wrap">
+    <input type="checkbox" class="toggler">
+    <div class="hamburger"><div></div></div>
+    <div class="menu">
+      <div>
+        <div>
+          <ul>
+            <li><a href="home.php">Home</a></li>
+            <li><a href="about.php">About Us</a></li>
+			<li><a href="signup.php">Adopt</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="contact.php">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<header>
-        <div class="menu-toggle" id="hamburger">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="overlay"></div>
-        <div class="container">
-            <nav>
-                <h1 class="brand"><a href="home.php">Pre<span>tty</span>Paws</a></h1>
-                <ul>
-                    <li><a href="home.php">Home</a></li>
-                    <li><a href="signup.php">Adoption</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="about.php">About</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-</header>
-  
   
 </body>
 </html>
