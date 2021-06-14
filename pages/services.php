@@ -84,8 +84,7 @@
 	<div class="watch">
 		<a href="home.php" target="_blank">
 			<span>Go back to home page</span>
-            <i class="fa fa-home"></i>
-			
+            <i class="fa fa-home"></i>			
 		<a>
 	</div>
 
