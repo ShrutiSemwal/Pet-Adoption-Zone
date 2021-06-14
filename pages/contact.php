@@ -1,3 +1,41 @@
+<?php 
+
+$name=$email="";
+
+$errors=["empty_name"=>'', "invalid_name"=>'', "email"
+=>''];
+
+if(isset($_POST['send'])){
+
+  $name= $_POST['name'];
+  $email=$_POST['email'];
+
+  if(empty($name)){
+    $errors['empty_name']="Name can't be empty! ";
+  }
+
+  if(!preg_match('/^[a-zA-Z]*$/', $name))
+  {
+    $errors['invalid_name'] = "Invalid Name!";
+  }
+
+  if(!preg_match('/^[a-zA-Z_0-9]*(\.[a-zA-Z_0-9]+)*@[a-zA-Z]+(\.[a-zA-Z]+)*(\.[a-z]{2,3})$/',$email))
+  {
+    $errors['email']="Invalid email id!";
+    }
+
+    if($errors['empty_name']== '' && $errors['invalid_name']
+    == '' && $errors['email']=='')
+
+    {
+      echo '<script>alert("Message sent successfully")</script>';
+    }
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,23 +316,25 @@ hr {
     
       -----------------> 
     
-    <form id="contact-form" class="form-horizontal" role="form">
+    <form id="contact-form" class="form-horizontal" role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
        
       <div class="form-group">
         <div class="col-sm-12">
-          <input type="text" class="form-control" id="name" placeholder="NAME" name="name" value="" required>
+          <input type="text" class="form-control" id="name" placeholder="NAME" name="name" value="<?php echo $name;  ?>">
+          <p style="color:red"><?php echo $errors['empty_name'];
+          echo $errors['invalid_name'];  ?>
         </div>
       </div>
       </br>
       <div class="form-group">
         <div class="col-sm-12">
-          <input type="email" class="form-control" id="email" placeholder="EMAIL" name="email" value="" required>
+          <input type="email" class="form-control"  placeholder="EMAIL" name="email" value="<?php echo $email;  ?>">
         </div>
       </div>
          </br>
       <textarea class="form-control" rows="10" cols="30" placeholder="MESSAGE" name="message" required></textarea>
       
-      <button class="btn btn-primary send-button" id="submit" type="submit" value="SEND">
+      <button class="btn btn-primary send-button" name="send" type="submit" value="send">
         <div class="button">
           <i class="fa fa-paper-plane icon major"></i><span class="send-text">SEND</span>
         </div>
